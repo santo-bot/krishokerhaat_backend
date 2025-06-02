@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-(i_nu+jk)+cj6&%l34d^5dpgb(7^om9p08-y58_2w%xmw)p-6g
 DEBUG = True
 
 
-ALLOWED_HOSTS = ['krishokerhaat.herokuapp.com','127.0.0.1', 'localhost','192.168.0.101', '10.0.2.2']
+ALLOWED_HOSTS = ['*','127.0.0.1', 'localhost','192.168.0.101', '10.0.2.2']
 
 # Application definition
 
@@ -66,7 +66,13 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
+    
 ]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 ROOT_URLCONF = 'auths.urls'
 
@@ -92,10 +98,12 @@ WSGI_APPLICATION = 'auths.wsgi.application'
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
 DATABASES = {
-    'default': dj_database_url.config(
-        default=config('DATABASE_URL')
-    )
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / "db.sqlite3",
+    }
 }
+
 
 
 
