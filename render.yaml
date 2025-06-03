@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: krishokerhaat-backend
+    env: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn auths.wsgi
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: auths.settings
+      - key: SECRET_KEY
+        value: your-django-secret-key
+      - key: ALLOWED_HOSTS
+        value: krishokerhaat-backend.onrender.com
+      - fromDatabase:
+          name: krishokerhaat-db
+          property: connectionString
+
+databases:
+  - name: krishokerhaat-db
